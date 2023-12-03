@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/layout/Header.js'
 import Home from './components/Home/Home.js';
 
+import Login from './components/User/Login.js'
+
 
 
 
@@ -15,6 +17,9 @@ function App() {
         
         <Routes>
           <Route path='/' element={<Home />} />
+
+          {/* //Login */}
+          <Route path='/login' element={<Login />} />
         
 
         </Routes>

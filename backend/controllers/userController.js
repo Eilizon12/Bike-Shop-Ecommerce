@@ -4,34 +4,38 @@ const User = require("../models/userModel");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require('cloudinary');
 
 
 
 
 //Register User
 
-exports.registerUser = catchAsyncError(async(req, res, next)=>{
+exports.registerUser = async (req, res, next) => {
+  
+  const { name, email, password, role } = req.body;
+  const user = await User.create({
+      name,
+      email,
+      password,
+      avatar: {
+          public_id: "sample_id",
+          url: "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png"
+      },
 
-    
+      // role,
+  })
 
+  // const token = user.getJwtToken();
+  if (!user) {
+      return res.status(500).json({
+          success: false,
+          message: 'user not created'
+      })
+  }
+  sendToken(user, 200, res)
 
-
-    const {name,email,password} = req.body;
-    const user = await Users.create({
-        name,email,password,
-        avatar:
-        {
-            public_id: result.public._id,
-            url:result.secure_url
-        }
-    });
-
-    
-
-    sendToken(user,201,res);
-
-});
+}
 
 
 // Login User
@@ -39,11 +43,7 @@ exports.registerUser = catchAsyncError(async(req, res, next)=>{
 exports.loginUser = catchAsyncError(async(req, res, next)=>{
 
 
-      const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
-        folder: 'Avatars',
-        width: 150,
-        crop: "scale" 
-      })
+    
 
     const {email,password} = req.body;
 

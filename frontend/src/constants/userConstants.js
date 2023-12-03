@@ -1,0 +1,5 @@
+export const LOGIN_REQUEST = " LOGIN REQUESTED";
+export const LOGIN_SUCCESS = "LOGIN SUCCESFULL";
+export const LOGIN_FAIL = "LOGIN FAILED";
+
+export const CLEAR_ERRORS = "ERROR";
